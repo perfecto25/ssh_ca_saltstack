@@ -236,7 +236,7 @@ attached are
 </ul>
 <br>
 
-To login to QB hosts you must copy these files to your Home .ssh directory
+To login to hosts you must copy these files to your Home .ssh directory
 <br><br>
 download these files and move them to <b>~/.ssh/</b> folder (/Users/{args.name}/.ssh)
 <br><br>
