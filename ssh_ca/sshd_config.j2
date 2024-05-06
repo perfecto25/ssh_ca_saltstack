@@ -1,0 +1,77 @@
+##############################################################
+## This file is managed by SALTSTACK - Do not modify manually
+##############################################################
+
+Port 22
+AddressFamily any
+ListenAddress 0.0.0.0
+Protocol 2
+
+
+########### SSH CA ##########
+HostKey /etc/ssh/{{grains.id}}
+HostCertificate /etc/ssh/{{grains.id}}-cert.pub
+TrustedUserCAKeys /etc/ssh/user_CA.pub
+RevokedKeys /etc/ssh/revoked_keys
+#############################
+
+
+# Logging
+SyslogFacility AUTHPRIV
+LogLevel INFO
+Banner /etc/issue.net
+
+# Authentication:
+LoginGraceTime 2m
+PermitRootLogin prohibit-password
+StrictModes yes
+MaxAuthTries 3
+MaxSessions 3
+PubkeyAuthentication yes
+AuthorizedKeysFile	.ssh/authorized_keys
+HostbasedAuthentication no
+
+# To disable tunneled clear text passwords, change to no here!
+PasswordAuthentication no
+PermitEmptyPasswords no
+ChallengeResponseAuthentication no
+
+# Kerberos options
+KerberosAuthentication no
+
+# GSSAPI options
+GSSAPIAuthentication no
+GSSAPICleanupCredentials no
+GSSAPIStrictAcceptorCheck yes
+GSSAPIKeyExchange no
+UsePAM yes
+
+AllowAgentForwarding no
+AllowTcpForwarding no
+GatewayPorts no
+
+X11Forwarding no
+X11DisplayOffset 10
+X11UseLocalhost yes
+PermitTTY yes
+PrintMotd yes
+PrintLastLog yes
+TCPKeepAlive yes
+ClientAliveInterval 0
+ClientAliveCountMax 2
+UseDNS no
+Compression delayed
+
+# Accept locale-related environment variables
+AcceptEnv LANG LC_CTYPE LC_NUMERIC LC_TIME LC_COLLATE LC_MONETARY LC_MESSAGES
+AcceptEnv LC_PAPER LC_NAME LC_ADDRESS LC_TELEPHONE LC_MEASUREMENT
+AcceptEnv LC_IDENTIFICATION LC_ALL LANGUAGE
+AcceptEnv XMODIFIERS
+
+# Restrict key exchange, cipher, and MAC algorithms, as per sshaudit.com hardening guide.
+KexAlgorithms curve25519-sha256,curve25519-sha256@libssh.org,diffie-hellman-group18-sha512,diffie-hellman-group16-sha512,diffie-hellman-group-exchange-sha256
+Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
+MACs hmac-sha2-256-etm@openssh.com,hmac-sha2-512-etm@openssh.com,umac-128-etm@openssh.com
+
+# override default of no subsystems
+Subsystem	sftp	/usr/libexec/openssh/sftp-server

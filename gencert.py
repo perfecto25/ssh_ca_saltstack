@@ -15,7 +15,6 @@ from email.mime.application import MIMEApplication
 from email.mime.text import MIMEText
 import requests
 import json
-import yaml
 
 base_dir = "/srv/utils/ssh_ca"
 mailhost = "your_mail_hostname"
